@@ -4,3 +4,5 @@ title = 'Drew Dresser'
 
 [taxonomies]
   tag = "tags"
+[permalinks]
+    blogmarks = "/blogmarks/:year/:month/:day/:slug/"
