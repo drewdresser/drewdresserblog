@@ -5,25 +5,25 @@
         {{ $sortedPages := $pages.ByDate.Reverse }}
         {{ range $sortedPages.GroupByDate "January 2, 2006" }}
         <div class="mb-12">
-            <h2 class="text-3xl font-bold mb-6 text-gray-800">{{ .Key }}</h2>
+            <h3 class="text-3xl font-bold mb-6 text-gray-800">{{ .Key }}</h3>
                     {{ range .Pages }}
                     <article class="mb-6 pb-6 border-b border-gray-200">
                         <div>
-                            <h3 class="text-2xl font-bold mb-3">
-                                {{ if eq .Type "blogmarks" }}
-                                    <a href="{{ .Params.my_url }}" class="text-gray-900 hover:text-blue-600" target="_blank" rel="noopener noreferrer">
-                                        {{ .Params.slug }}
-                                    </a>
-                                {{ else }}
+                            {{ if eq .Type "blogmarks" }}
+                                <div class="mb-3">
+                                    🔗 <a href="{{ .Params.my_url }}" class="text-blue-600 hover:text-blue-800" target="_blank" rel="noopener noreferrer">{{ .Params.slug }}</a> {{ .Content }}
+                                </div>
+                            {{ else }}
+                                <h3 class="text-2xl font-bold mb-3">
                                     <a href="{{ .RelPermalink }}" class="text-gray-900 hover:text-blue-600">
                                         {{ .Title }}
                                     </a>
-                                {{ end }}
-                            </h3>
+                                </h3>
+                                <div class="mb-3">
+                                    {{ .Content }}
+                                </div>
+                            {{ end }}
                             
-                            <div class="mb-3">
-                                {{ .Content }}
-                            </div>
                             <div class="date-and-tags flex items-center text-sm text-gray-500 mb-2">
                                 <time>{{ .Date.Format "3:04 PM" }}</time>
                                 {{ with .Params.tags }}
