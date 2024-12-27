@@ -1,17 +1,38 @@
 {{ define "main" }}
 <article class="prose prose-lg mx-auto">
-    <h1>{{ .Title }}</h1>
-    <div class="flex items-center text-sm text-gray-500 mb-8">
-        <time>{{ .Date.Format "January 2, 2006" }}</time>
-        {{ with .Params.tags }}
-            <span class="mx-2">•</span>
-            <div class="space-x-2">
-                {{ range . }}
-                    <a href="/tags/{{ . | urlize }}" class="inline-block bg-gray-100 rounded px-2 py-1 hover:bg-gray-200 transition duration-300">{{ . }}</a>
+    {{ if eq .Type "blogmarks" }}
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold">
+                🔗 <a href="{{ .Params.my_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800">
+                    {{ .Params.slug }}
+                </a>
+            </h1>
+            <div class="flex items-center text-sm text-gray-500 mt-4">
+                <time>{{ .Date.Format "January 2, 2006" }}</time>
+                {{ with .Params.tags }}
+                    <span class="mx-2">•</span>
+                    <div class="space-x-2">
+                        {{ range . }}
+                            <a href="/tags/{{ . | urlize }}" class="inline-block bg-gray-100 rounded px-2 py-1 hover:bg-gray-200 transition duration-300">{{ . }}</a>
+                        {{ end }}
+                    </div>
                 {{ end }}
             </div>
-        {{ end }}
-    </div>
+        </div>
+    {{ else }}
+        <h1>{{ .Title }}</h1>
+        <div class="flex items-center text-sm text-gray-500 mb-8">
+            <time>{{ .Date.Format "January 2, 2006" }}</time>
+            {{ with .Params.tags }}
+                <span class="mx-2">•</span>
+                <div class="space-x-2">
+                    {{ range . }}
+                        <a href="/tags/{{ . | urlize }}" class="inline-block bg-gray-100 rounded px-2 py-1 hover:bg-gray-200 transition duration-300">{{ . }}</a>
+                    {{ end }}
+                </div>
+            {{ end }}
+        </div>
+    {{ end }}
     {{ .Content }}
 </article>
 {{ end }}

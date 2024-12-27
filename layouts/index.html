@@ -27,6 +27,7 @@
                             {{ end }}
                             
                             <div class="date-and-tags flex items-center text-sm text-gray-500 mb-2">
+                                <a href="{{ .RelPermalink }}" class="hover:text-blue-600 mr-2" title="Permalink">🔗</a>
                                 <time>{{ .Date.Format "3:04 PM" }}</time>
                                 {{ with .Params.tags }}
                                     <span class="mx-2">•</span>
