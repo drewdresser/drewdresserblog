@@ -1,44 +1,54 @@
 {{ define "main" }}
-
     <!-- Posts list -->
     <div class="space-y-10">
-        {{ range first 10 (where .Site.RegularPages "Type" "posts") }}
-            <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-                <div class="p-6">
-                    <div class="flex items-center text-sm text-gray-500 mb-2">
-                        <time>{{ .Date.Format "January 2, 2006" }}</time>
-                        {{ with .Params.tags }}
-                            <span class="mx-2">•</span>
-                            <div class="space-x-2">
-                                {{ range . }}
-                                    <span class="inline-block bg-gray-100 rounded px-2 py-1">{{ . }}</span>
+        {{ $pages := where .Site.RegularPages "Type" "posts" }}
+        {{ range $pages.GroupByDate "2006" }}
+        <div class="mb-12">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">{{ .Key }}</h2>
+            
+            {{ range .Pages.GroupByDate "January" }}
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold mb-4 text-gray-700">{{ .Key }}</h3>
+                
+                {{ range .Pages.GroupByDate "2" }}
+                <div class="mb-6">
+                    <h4 class="text-lg font-medium mb-3 text-gray-600">{{ .Key }}{{ if eq .Key "1" }}st{{ else if eq .Key "2" }}nd{{ else if eq .Key "3" }}rd{{ else }}th{{ end }}</h4>
+                    
+                    {{ range first 10 .Pages }}
+                    <article class="mb-6">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-3">
+                                <a href="{{ .RelPermalink }}" class="text-gray-900 hover:text-blue-600">
+                                    {{ .Title }}
+                                </a>
+                            </h3>
+                            
+                            <div class="text-gray-600 prose prose-lg">
+                                {{ .Content }}
+                            </div>
+                            <div class="date-and-tags flex items-center text-sm text-gray-500 mb-2">
+                                <time>{{ .Date.Format "3:04 PM" }}</time>
+                                {{ with .Params.tags }}
+                                    <span class="mx-2">•</span>
+                                    <div class="space-x-2">
+                                        {{ range . }}
+                                            <span class="inline-block bg-gray-100 rounded px-2 py-1">{{ . }}</span>
+                                        {{ end }}
+                                    </div>
                                 {{ end }}
                             </div>
-                        {{ end }}
-                    </div>
-                    
-                    <h2 class="text-2xl font-bold mb-3">
-                        <a href="{{ .RelPermalink }}" class="text-gray-900 hover:text-blue-600">
-                            {{ .Title }}
-                        </a>
-                    </h2>
-                    
-                    <p class="text-gray-600 mb-4 prose prose-lg">
-                        <article class="prose prose-lg mx-auto">
-                            {{ .Content }}
-                        </article>
-                    </p>
-                    
-                    <!-- <a href="{{ .RelPermalink }}" class="inline-block text-blue-600 hover:text-blue-800 font-medium">
-                        Read more →
-                    </a> -->
+                        </div>
+                    </article>
+                    {{ end }}
                 </div>
-            </article>
+                {{ end }}
+            </div>
+            {{ end }}
+        </div>
         {{ end }}
     </div>
 
-    <!-- If there are more than 10 posts, show a view all button -->
-    {{ if gt (len (where .Site.RegularPages "Type" "posts")) 10 }}
+    {{ if gt (len $pages) 10 }}
         <div class="mt-8 text-center">
             <a href="/posts" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300">
                 View All Posts
