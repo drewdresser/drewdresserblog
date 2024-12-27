@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>{{ .Title }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ if .Title }}{{ .Title }} - {{ end }}{{ .Site.Title }}</title>
     {{ $time := now }}
     {{ $styles := resources.Get "css/styles.scss"
         | toCSS
@@ -16,17 +18,31 @@
         <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
     {{ end }}
 </head>
-<body>
-    <nav>
-        <a href="/">Home</a>
-        <a href="/about">About</a>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex space-x-7">
+                    <div class="hidden md:flex items-center space-x-4">
+                        <a href="/" class="py-4 px-2 text-gray-700 hover:text-gray-900 transition duration-300">Home</a>
+                        <a href="/about" class="py-4 px-2 text-gray-700 hover:text-gray-900 transition duration-300">About</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </nav>
-    <header class="w-full bg-red-300">
-        <h1 class="text-center">Welcome to HugoTails!</h1>
-      </header>
-    {{ .Content }}
-    <footer>
-        <p>My Site Footer</p>
+
+    <!-- Main Content -->
+    <div class="max-w-4xl mx-auto px-4 py-8">
+        {{ block "main" . }}{{ end }}
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white mt-12 border-t">
+        <div class="max-w-4xl mx-auto px-4 py-6">
+            <p class="text-center text-gray-600">© {{ now.Format "2006" }} Drew Dresser. All rights reserved.</p>
+        </div>
     </footer>
 </body>
 </html>
