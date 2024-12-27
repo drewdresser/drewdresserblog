@@ -11,7 +11,7 @@
                         <div>
                             {{ if eq .Type "blogmarks" }}
                                 <div class="mb-3">
-                                    🔗 <a href="{{ .Params.my_url }}" class="text-blue-600 hover:text-blue-800" target="_blank" rel="noopener noreferrer">{{ .Params.slug }}</a> {{ .Content }}
+                                    🔗 <a href="{{ .Params.my_url }}" class="text-blue-600 hover:text-blue-800" target="_blank" rel="noopener noreferrer">{{ .Params.slug }}</a><article class="prose prose-lg mx-auto">{{ .Content }}</article>
                                 </div>
                             {{ else }}
                                 <h3 class="text-2xl font-bold mb-3">

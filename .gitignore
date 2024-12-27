@@ -3,10 +3,14 @@
 
 # Hugo cache and temporary files
 /resources/
+/resources/*
 /.hugo_build.lock
 
 # Node modules (for TailwindCSS)
 /node_modules/
+/node_modules/*
+node_modules/
+node_modules/*
 
 # OS generated files
 .DS_Store

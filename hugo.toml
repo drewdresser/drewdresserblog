@@ -1,6 +1,7 @@
 baseURL = 'https://drewdresser.com/'
 languageCode = 'en-us'
 title = 'Drew Dresser'
+ignoreLogs = ['warning-goldmark-raw-html']
 
 [taxonomies]
   tag = "tags"
