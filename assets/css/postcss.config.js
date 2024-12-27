@@ -9,5 +9,6 @@ module.exports = {
         require('autoprefixer')({
             path: [themeDir]
         }),
+        require('@tailwindcss/typography'),
     ]
 }

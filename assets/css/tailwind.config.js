@@ -1,10 +1,28 @@
 /** @type {import('tailwindcss').Config} */
-const themeDir = __dirname + '/../../';
 module.exports = {
-  content: ['./layouts/**/*.html', './content/**/*.{html,md}'],
+  content: ['./layouts/**/*.html', './layouts/*.html', './content/**/*.{html,md}'],
   theme: {
-    content: [`${themeDir}/layouts/**/*.html`, `${themeDir}/content/**/*.md`],
-    extend: {},
+    extend: {
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: 'none', // Prevents prose from constraining width
+            a: {
+              color: '#2563eb', // blue-600
+              '&:hover': {
+                color: '#1d4ed8', // blue-700
+              },
+            },
+            'code::before': {
+              content: '""'
+            },
+            'code::after': {
+              content: '""'
+            }
+          },
+        },
+      },
+    },
   },
   plugins: [
     require('@tailwindcss/typography'),
