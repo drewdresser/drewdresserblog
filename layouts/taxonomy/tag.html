@@ -1,0 +1,35 @@
+{{ define "main" }}
+<div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8">Posts tagged "{{ .Title }}"</h1>
+    
+    <div class="space-y-10">
+        {{ range .Pages }}
+        <article class="mb-6">
+            <div>
+                <h3 class="text-2xl font-bold mb-3">
+                    <a href="{{ .RelPermalink }}" class="text-gray-900 hover:text-blue-600">
+                        {{ .Title }}
+                    </a>
+                </h3>
+                
+                <div class="text-gray-600 prose prose-lg">
+                    {{ .Summary }}
+                </div>
+                
+                <div class="date-and-tags flex items-center text-sm text-gray-500 mb-2">
+                    <time>{{ .Date.Format "January 2, 2006" }}</time>
+                    {{ with .Params.tags }}
+                        <span class="mx-2">•</span>
+                        <div class="space-x-2">
+                            {{ range . }}
+                                <a href="/tags/{{ . | urlize }}" class="inline-block bg-gray-100 rounded px-2 py-1 hover:bg-gray-200 transition duration-300">{{ . }}</a>
+                            {{ end }}
+                        </div>
+                    {{ end }}
+                </div>
+            </div>
+        </article>
+        {{ end }}
+    </div>
+</div>
+{{ end }} 
