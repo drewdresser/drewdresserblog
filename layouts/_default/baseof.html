@@ -14,10 +14,10 @@
 
     {{ if hugo.IsServer }}
         <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
-        {{ partial "posthog.html" . }}
     {{ else }}
         {{ $styles := $styles | minify | fingerprint | resources.PostCSS }}
         <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+        {{ partial "posthog.html" . }}
     {{ end }}
 
 </head>
