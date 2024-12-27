@@ -24,12 +24,14 @@
                     </h2>
                     
                     <p class="text-gray-600 mb-4 prose prose-lg">
-                        {{ .Content }}
+                        <article class="prose prose-lg mx-auto">
+                            {{ .Content }}
+                        </article>
                     </p>
                     
-                    <a href="{{ .RelPermalink }}" class="inline-block text-blue-600 hover:text-blue-800 font-medium">
+                    <!-- <a href="{{ .RelPermalink }}" class="inline-block text-blue-600 hover:text-blue-800 font-medium">
                         Read more →
-                    </a>
+                    </a> -->
                 </div>
             </article>
         {{ end }}
