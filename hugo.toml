@@ -1,7 +1,11 @@
 baseURL = 'https://drewdresser.com/'
 languageCode = 'en-us'
-title = 'Drew Dresser'
+title = 'Drew Dressers Weblog'
 ignoreLogs = ['warning-goldmark-raw-html']
+
+[Author]
+    name = "Drew Dresser"
+    email  = "andrewjdresser@gmail.com"
 
 [taxonomies]
   tag = "tags"
