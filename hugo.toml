@@ -6,4 +6,5 @@ ignoreLogs = ['warning-goldmark-raw-html']
 [taxonomies]
   tag = "tags"
 [permalinks]
-    blogmarks = "/blogmarks/:year/:month/:day/:slug/"
+    blogmarks = "/:year/:month/:day/:slug/"
+    posts = "/:year/:month/:day/:slug/"
