@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ .Title }}</title>
+    {{ $time := now }}
+    {{ $styles := resources.Get "css/styles.scss"
+        | toCSS
+        | postCSS (dict "config" "./assets/css/postcss.config.js")
+        | resources.ExecuteAsTemplate (printf "styles.%s.css" $time) $time
+    }}
+
+    {{ if hugo.IsServer }}
+        <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+    {{ else }}
+        {{ $styles := $styles | minify | fingerprint | resources.PostCSS }}
+        <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+    {{ end }}
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+    </nav>
+    <header class="w-full bg-red-300">
+        <h1 class="text-center">Welcome to HugoTails!</h1>
+      </header>
+    {{ .Content }}
+    <footer>
+        <p>My Site Footer</p>
+    </footer>
+</body>
+</html>

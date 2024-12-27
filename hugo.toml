@@ -1,0 +1,4 @@
+baseURL = 'https://drewdresser.com/'
+languageCode = 'en-us'
+title = 'Drew Dresser'
+disableKinds = ['taxonomy', 'term']
