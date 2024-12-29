@@ -3,6 +3,17 @@
     <div class="space-y-10">
         {{ $pages := union (where .Site.RegularPages "Type" "posts") (where .Site.RegularPages "Type" "blogmarks") }}
         {{ $sortedPages := $pages.ByDate.Reverse }}
+
+        <!-- Debug info -->
+        <div class="debug-info" style="display: none;">
+            <p>Total pages: {{ len $pages }}</p>
+            <p>Pages found:</p>
+            {{ range $pages }}
+                <p>- {{ .Type }}: {{ .Title }} ({{ .Date }})</p>
+            {{ end }}
+        </div>
+        <!-- End debug info -->
+
         {{ range $sortedPages.GroupByDate "January 2, 2006" }}
         <div class="mb-12">
             <h3 class="text-3xl font-bold mb-6 text-gray-800">{{ .Key }}</h3>
