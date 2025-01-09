@@ -3,6 +3,7 @@
     <div class="space-y-10">
         {{ $pages := union (where .Site.RegularPages "Type" "posts") (where .Site.RegularPages "Type" "blogmarks") }}
         {{ $sortedPages := $pages.ByDate.Reverse }}
+        {{ $paginator := .Paginate $sortedPages 10 }}
 
         <!-- Debug info -->
         <div class="debug-info" style="display: none;">
@@ -14,7 +15,7 @@
         </div>
         <!-- End debug info -->
 
-        {{ range $sortedPages.GroupByDate "January 2, 2006" }}
+        {{ range $paginator.Pages.GroupByDate "January 2, 2006" }}
         <div class="mb-12">
             <h3 class="text-3xl font-bold mb-6 text-gray-800">{{ .Key }}</h3>
                     {{ range .Pages }}
@@ -55,6 +56,48 @@
         </div>
         {{ end }}
     </div>
+
+    <!-- Pagination -->
+    {{ if gt $paginator.TotalPages 1 }}
+    <div class="mt-8 flex justify-center">
+        <nav class="flex items-center space-x-2" aria-label="Pagination">
+            <!-- Previous page -->
+            {{ if $paginator.HasPrev }}
+                <a href="{{ $paginator.Prev.URL }}" class="px-4 py-2 text-sm border rounded hover:bg-gray-50">
+                    Previous
+                </a>
+            {{ else }}
+                <span class="px-4 py-2 text-sm border rounded text-gray-400 bg-gray-50 cursor-not-allowed">
+                    Previous
+                </span>
+            {{ end }}
+
+            <!-- Page numbers -->
+            {{ range $paginator.Pagers }}
+                {{ if eq . $paginator }}
+                    <span class="px-4 py-2 text-sm border rounded bg-blue-600 text-white">
+                        {{ .PageNumber }}
+                    </span>
+                {{ else }}
+                    <a href="{{ .URL }}" class="px-4 py-2 text-sm border rounded hover:bg-gray-50">
+                        {{ .PageNumber }}
+                    </a>
+                {{ end }}
+            {{ end }}
+
+            <!-- Next page -->
+            {{ if $paginator.HasNext }}
+                <a href="{{ $paginator.Next.URL }}" class="px-4 py-2 text-sm border rounded hover:bg-gray-50">
+                    Next
+                </a>
+            {{ else }}
+                <span class="px-4 py-2 text-sm border rounded text-gray-400 bg-gray-50 cursor-not-allowed">
+                    Next
+                </span>
+            {{ end }}
+        </nav>
+    </div>
+    {{ end }}
 
     {{ if gt (len $pages) 10 }}
         <div class="mt-8 text-center">
