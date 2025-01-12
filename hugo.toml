@@ -2,6 +2,7 @@ baseURL = 'https://drewdresser.com/'
 languageCode = 'en-us'
 title = 'Drew Dressers Weblog'
 ignoreLogs = ['warning-goldmark-raw-html']
+buildFuture = true
 
 [Author]
     name = "Drew Dresser"
